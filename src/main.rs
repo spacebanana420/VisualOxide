@@ -57,13 +57,13 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn checkalpha
 //fn print
 
-fn icogen(doremy:&str) {
-   let img = open_image(&doremy);
+fn icogen(imgname:&str) {
+   let img = open_image(&imgname);
    img.save("test.ico");
 }
 
-fn testfun(doremy:&str) {
-    //let img = image::open(doremy.trim()).expect("ag");
+fn testfun(imgname:&str) {
+    //let img = image::open(imgname.trim()).expect("ag");
     //let pixeltest = img.get_pixel(40, 40);
     let mut switch:u8 = 1;
     let mut square = DynamicImage::new_rgb8(400, 400);
@@ -90,13 +90,13 @@ fn testfun(doremy:&str) {
     //println!("{}", pixeltest as u8);
 }
 
-fn imageinfo(doremy:&str) {
-    let img = open_image(&doremy);
+fn imageinfo(imgname:&str) {
+    let img = open_image(&imgname);
     let (w, h) = img.dimensions();
 }
 
-fn resizeimg(doremy:&str) {
-    let img = open_image(&doremy);
+fn resizeimg(imgname:&str) {
+    let img = open_image(&imgname);
     let (w, h) = img.dimensions();
 
     println!("1. factor  2. manual  3. auto aspect");
@@ -144,16 +144,16 @@ fn resizeimg(doremy:&str) {
     }
 
     let img_resized = image::DynamicImage::resize(&img, rw, rh, imageops::CatmullRom);
-    img_resized.save("doremytest.png").unwrap();
+    img_resized.save("scaleimg.png").unwrap();
     //let imgenc = PngEncoder::write_image(imgenc, &img_resized, w, h, ColorType::Rgb16);
     //image::save_buffer("test.png", &img_resized, w/2, w/2, ExtendedColorType::Bgr16).unwrap();
 }
 
-fn cropimg(doremy:&str) {
-    let mut img = open_image(&doremy);
+fn cropimg(imgname:&str) {
+    let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
     let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
     //img.crop(w/4, h/4, w/2, h/2);
     //let img_cropped = img.crop(200, 200, 400, 400);
-    img.save("doremytest.png").unwrap();
+    img.save("cropimg.png").unwrap();
 }
