@@ -152,8 +152,29 @@ fn resizeimg(imgname:&str) {
 fn cropimg(imgname:&str) {
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
-    let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
-    //img.crop(w/4, h/4, w/2, h/2);
-    //let img_cropped = img.crop(200, 200, 400, 400);
+    println!("1. Division     2. Manual     3. Center (preset)"); println!("Set the cropping mode");
+    cropmode = answer_to_u8();
+    match cropmode {
+        1=> {
+
+        },
+        2=> {
+            println!("Choose the starting point (from left)");
+            let startx = answer_to_u32();
+            println!("Choose the starting point (from top)");
+            let starty = answer_to_u32();
+            println!("Choose the crop width");
+            let cropwidth = answer_to_u32();
+            println!("Choose the crop height");
+            let cropheight = answer_to_u32();
+            let img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
+        },
+        3=> {
+            let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
+        },
+        _=> {
+            println!("Choose a cropping mode!");
+        }
+    }
     img.save("cropimg.png").unwrap();
 }
