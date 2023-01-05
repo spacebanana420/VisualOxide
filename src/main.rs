@@ -5,23 +5,44 @@ use std::io;
 use std::fs;
 
 fn main() {
-    //testfun("a"); return;
     println!("1. Resize     2. Crop");
-    let mut operation = String::new();
-    println!("Choose an operation"); io::stdin().read_line(&mut operation);
-    let operation:u8 = operation.trim().parse().expect("The operation must be a number");
+    println!("Choose an operation");
+    let operation = answer_to_u8();
     let currentdir = fs::read_dir("./").unwrap();
     for dir in currentdir {
         println!("{}", dir.unwrap().path().display());
     }
-    let mut inputimg = String::new();
-    println!("Input image file"); io::stdin().read_line(&mut inputimg);
+    println!("Input image file");
+    let inputimg = answer();
 
     match operation {
         1=> resizeimg(&inputimg),
         2=> cropimg(&inputimg),
-        _=> {println!("Chosen operation is incorrect"); println!("Please choose an operation by typing its name or number");}
+        _=> {
+            println!("Chosen operation is incorrect");
+            println!("Please choose an operation by typing its name or number");
+        }
     }
+}
+
+fn answer() -> String {
+    let mut userinput = String::new();
+    io::stdin().read_line(&mut userinput).expect("aaa");
+    return userinput;
+}
+
+fn answer_to_u8() -> u8 {
+    let mut userinput = String::new();
+    io::stdin().read_line(&mut userinput).expect("aaa");
+    let userinput:u8 = userinput.trim().parse().expect("Needs to be a number!");
+    return userinput;
+}
+
+fn answer_to_u32() -> u32 {
+    let mut userinput = String::new();
+    io::stdin().read_line(&mut userinput).expect("aaa");
+    let userinput:u32 = userinput.trim().parse().expect("Needs to be a number!");
+    return userinput;
 }
 
 //fn help
@@ -76,49 +97,36 @@ fn resizeimg(doremy:&str) {
 
     println!("1. factor  2. manual  3. auto aspect");
     println!("Choose a mode");
-    let mut mode = String::new();
-    io::stdin().read_line(&mut mode).expect("aaa");
-    let mode:u8 = mode.trim().parse().expect("Needs to be a number!");
+    let mode = answer_to_u8();
 
     let mut rw:u32 = 0; let mut rh:u32 = 0;
     match mode {
         1=> {
             println!("Input the image scaling factor");
-            let mut factor = String::new();
-            io::stdin().read_line(&mut factor).expect("a");
-            let factor:u32 = factor.trim().parse().expect("Needs to be a number!");
-            rw = w * factor; rh = h * factor;
+            let scalefactor = answer_to_u32();
+            rw = w * scalefactor; rh = h * scalefactor;
         },
         2=> {
-            let mut tempdimension = String::new();
             println!("Input width");
-            io::stdin().read_line(&mut tempdimension).expect("a");
-            rw = tempdimension.trim().parse().expect("Needs to be a number!");
+            rw = answer_to_u32();
             println!("Input height");
-            io::stdin().read_line(&mut tempdimension).expect("a");
-            rh = tempdimension.trim().parse().expect("Needs to be a number!")
+            rh = answer_to_u32();
         },
         3=> {
             println!("1. width   2. height");
-            println!("Choose one to scale, the other will be automatic (default: width)");
-            let mut mode = String::new();
-            io::stdin().read_line(&mut mode).expect("aaa");
-            if mode != "1" && mode != "2" {
-                let mode:u8 = 1;
-            }
-            else {let mode:u8 = mode.trim().parse().expect("Needs to be a number!");}
-            let mut tempdimension = String::new();
+            println!("Choose one to scale, the other will be automatic");
+            let mode = answer_to_u8();
             match mode {
                 1=> {
                     println!("Input width");
-                    io::stdin().read_line(&mut tempdimension).expect("a");
-                    rw = tempdimension.trim().parse().expect("Needs to be a number!");
+                    let tempdimension = answer_to_u32();
+                    rw = tempdimension;
                     rh = h * (rw / w);
                 },
                 2=> {
                     println!("Input height");
-                    io::stdin().read_line(&mut tempdimension).expect("a");
-                    rh = tempdimension.trim().parse().expect("Needs to be a number!");
+                    let tempdimension = answer_to_u32();
+                    rh = tempdimension;
                     rw = w * (rh / h);
                 },
             }
