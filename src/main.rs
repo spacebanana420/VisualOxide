@@ -45,6 +45,10 @@ fn answer_to_u32() -> u32 {
     return userinput;
 }
 
+fn open_image(filename:&str) -> image::DynamicImage {
+    let inputimage = image::open(filename.trim()).expect("Image file not found in specified directory");
+    return inputimage;
+}
 //fn help
 //fn batchprocess
 //fn transcode
@@ -54,7 +58,7 @@ fn answer_to_u32() -> u32 {
 //fn print
 
 fn icogen(doremy:&str) {
-   let img = image::open(doremy.trim()).expect("ag");
+   let img = open_image(&doremy);
    img.save("test.ico");
 }
 
@@ -87,12 +91,12 @@ fn testfun(doremy:&str) {
 }
 
 fn imageinfo(doremy:&str) {
-    let img = image::open(doremy.trim()).expect("ag");
+    let img = open_image(&doremy);
     let (w, h) = img.dimensions();
 }
 
 fn resizeimg(doremy:&str) {
-    let img = image::open(doremy.trim()).expect("Image file not found in specified directory");
+    let img = open_image(&doremy);
     let (w, h) = img.dimensions();
 
     println!("1. factor  2. manual  3. auto aspect");
@@ -129,6 +133,9 @@ fn resizeimg(doremy:&str) {
                     rh = tempdimension;
                     rw = w * (rh / h);
                 },
+                _=> {
+                    println!("You need to choose which to scale!");
+                }
             }
         },
         _=> {
@@ -143,7 +150,7 @@ fn resizeimg(doremy:&str) {
 }
 
 fn cropimg(doremy:&str) {
-    let mut img = image::open(doremy.trim()).expect("ag");
+    let mut img = open_image(&doremy);
     let (w, h) = img.dimensions();
     let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
     //img.crop(w/4, h/4, w/2, h/2);
