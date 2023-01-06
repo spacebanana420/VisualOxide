@@ -1,11 +1,11 @@
 use image::imageops;
-use image::{GenericImageView, GenericImage, ColorType, ImageBuffer, DynamicImage, Rgba};
+use image::{GenericImageView, Pixel, GenericImage, ColorType, ImageBuffer, DynamicImage, Rgba};
 use image::io::Reader;
 use std::io;
 use std::fs;
 
 fn main() {
-    println!("1. Resize     2. Crop");
+    println!("1. Resize     2. Crop     3. Image to ASCII");
     println!("Choose an operation");
     let operation = answer_to_u8();
     let currentdir = fs::read_dir("./").unwrap();
@@ -18,6 +18,7 @@ fn main() {
     match operation {
         1=> resizeimg(&inputimg),
         2=> cropimg(&inputimg),
+        3=> image_to_ascii(&inputimg),
         _=> {
             println!("Chosen operation is incorrect");
             println!("Please choose an operation by typing its name or number");
@@ -57,6 +58,39 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn checkalpha
 //fn print
 //imagetoascii
+
+fn image_to_ascii(imgname:&str) {
+    let mut ascii_output = String::new();
+    println!("");
+    let img = open_image(&imgname);
+    let (width, height) = img.dimensions();
+    let img = image::DynamicImage::resize(&img, 40, height*40/width, imageops::Nearest);
+    let (width, height) = img.dimensions();
+    for y in 0..height {
+        for x in 0..width {
+            let pixel = img.get_pixel(x, y);
+            let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;
+            //println!("r={}", r.to_string());
+            if alpha == 0.0 {ascii_output.push(' ');}//print!(" ");}
+            else {
+                let brightness:f32 = (r + g + b) / 3.0;
+                match brightness {
+                    brightness if brightness >= 240.0 => ascii_output.push('.'),//print!("."),
+                    brightness if brightness >= 200.0 => ascii_output.push('*'),//print!("*"),
+                    brightness if brightness >= 160.0 => ascii_output.push('o'),//print!("o"),
+                    brightness if brightness >= 120.0 => ascii_output.push('&'),//print!("&"),
+                    brightness if brightness >= 80.0 => ascii_output.push('$'),//print!("$"),
+                    brightness if brightness >= 40.0 => ascii_output.push('+'),//print!("+"),
+                    _=> ascii_output.push('#'),//print!("#"),
+                }
+            }
+
+        }
+        ascii_output.push('\n');//println!("");
+    }
+    println!("{ascii_output}");
+}
+
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
    img.save("test.ico");
@@ -153,7 +187,7 @@ fn cropimg(imgname:&str) {
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
     println!("1. Division     2. Manual     3. Center (preset)"); println!("Set the cropping mode");
-    cropmode = answer_to_u8();
+    let cropmode = answer_to_u8();
     match cropmode {
         1=> {
 
