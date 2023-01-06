@@ -56,7 +56,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn generateimage
 //fn checkalpha
 //fn print
-
+//imagetoascii
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
    img.save("test.ico");
