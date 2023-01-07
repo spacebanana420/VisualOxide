@@ -58,7 +58,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn checkalpha
 //fn print
 //imagetoascii
-
+//duplicate horizontal ascii characters for compensation
 fn image_to_ascii(imgname:&str) {
     let mut ascii_output = String::new();
     println!("");
