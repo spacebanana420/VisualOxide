@@ -60,6 +60,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //imagetoascii
 //duplicate horizontal ascii characters for compensat
 fn image_to_ascii(imgname:&str) {
+    println!("Note: ASCII art generation only works if the image is 8bits/channel   ");
     let mut ascii_output = String::new();
     println!("");
     let img = open_image(&imgname);
