@@ -8,9 +8,11 @@ The program is currently on a very early stage
 # Features (as of now)
 - Image resizing and cropping
 - Image generation and creation of pixel patterns
+- ASCII art generation from an image
 - Decoding support for all formats supported by the image library
 - Preservation of original bit depth
 - PNG encoding
+- Image to ico conversion
 
 # Compiling from source
 Visual Oxide will work on any operative system that supports Rust's compiler and package manager
