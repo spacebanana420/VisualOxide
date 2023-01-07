@@ -76,11 +76,17 @@ fn image_to_ascii(imgname:&str) {
                 let brightness:f32 = (r + g + b) / 3.0;
                 match brightness {
                     brightness if brightness >= 240.0 => ascii_output.push_str("##"),//print!("."),
-                    brightness if brightness >= 200.0 => ascii_output.push_str("&&"),//print!("*"),
-                    brightness if brightness >= 160.0 => ascii_output.push_str("%%"),//print!("o"),
-                    brightness if brightness >= 120.0 => ascii_output.push_str("$$"),//print!("&"),
-                    brightness if brightness >= 80.0 => ascii_output.push_str("++"),//print!("$"),
+                    brightness if brightness >= 220.0 => ascii_output.push_str("WW"),//print!("."),
+                    brightness if brightness >= 200.0 => ascii_output.push_str("00"),//print!("*"),
+                    brightness if brightness >= 180.0 => ascii_output.push_str("&&"),//print!("*"),
+                    brightness if brightness >= 160.0 => ascii_output.push_str("çç"),//print!("o"),
+                    brightness if brightness >= 140.0 => ascii_output.push_str("$$"),//print!("o"),
+                    brightness if brightness >= 120.0 => ascii_output.push_str("%%"),//print!("&"),
+                    brightness if brightness >= 100.0 => ascii_output.push_str("11"),//print!("&"),
+                    brightness if brightness >= 80.0 => ascii_output.push_str("ww"),//print!("$"),
+                    brightness if brightness >= 60.0 => ascii_output.push_str("++"),//print!("$"),
                     brightness if brightness >= 40.0 => ascii_output.push_str("**"),//print!("+"),
+                    brightness if brightness >= 20.0 => ascii_output.push_str("''"),//print!("+"),
                     _=> ascii_output.push_str("--"),//print!("#"),
                 }
             }
@@ -124,10 +130,10 @@ fn testfun(imgname:&str) {
     //println!("{}", pixeltest as u8);
 }
 
-fn imageinfo(imgname:&str) {
+/*fn imageinfo(imgname:&str) {
     let img = open_image(&imgname);
     let (w, h) = img.dimensions();
-}
+}*/
 
 fn resizeimg(imgname:&str) {
     let img = open_image(&imgname);
