@@ -58,30 +58,30 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn checkalpha
 //fn print
 //imagetoascii
-//duplicate horizontal ascii characters for compensation
+//duplicate horizontal ascii characters for compensat
 fn image_to_ascii(imgname:&str) {
     let mut ascii_output = String::new();
     println!("");
     let img = open_image(&imgname);
     let (width, height) = img.dimensions();
-    let img = image::DynamicImage::resize(&img, 40, height*40/width, imageops::Nearest);
+    let img = image::DynamicImage::resize(&img, 30, height*30/width, imageops::Nearest);
     let (width, height) = img.dimensions();
     for y in 0..height {
         for x in 0..width {
             let pixel = img.get_pixel(x, y);
             let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;
             //println!("r={}", r.to_string());
-            if alpha == 0.0 {ascii_output.push(' ');}//print!(" ");}
+            if alpha == 0.0 {ascii_output.push_str("  ");}//print!(" ");}
             else {
                 let brightness:f32 = (r + g + b) / 3.0;
                 match brightness {
-                    brightness if brightness >= 240.0 => ascii_output.push('.'),//print!("."),
-                    brightness if brightness >= 200.0 => ascii_output.push('*'),//print!("*"),
-                    brightness if brightness >= 160.0 => ascii_output.push('o'),//print!("o"),
-                    brightness if brightness >= 120.0 => ascii_output.push('&'),//print!("&"),
-                    brightness if brightness >= 80.0 => ascii_output.push('$'),//print!("$"),
-                    brightness if brightness >= 40.0 => ascii_output.push('+'),//print!("+"),
-                    _=> ascii_output.push('#'),//print!("#"),
+                    brightness if brightness >= 240.0 => ascii_output.push_str(".."),//print!("."),
+                    brightness if brightness >= 200.0 => ascii_output.push_str("**"),//print!("*"),
+                    brightness if brightness >= 160.0 => ascii_output.push_str("oo"),//print!("o"),
+                    brightness if brightness >= 120.0 => ascii_output.push_str("&&"),//print!("&"),
+                    brightness if brightness >= 80.0 => ascii_output.push_str("$$"),//print!("$"),
+                    brightness if brightness >= 40.0 => ascii_output.push_str("++"),//print!("+"),
+                    _=> ascii_output.push_str("##"),//print!("#"),
                 }
             }
 
