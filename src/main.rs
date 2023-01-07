@@ -64,7 +64,7 @@ fn image_to_ascii(imgname:&str) {
     println!("");
     let img = open_image(&imgname);
     let (width, height) = img.dimensions();
-    let img = image::DynamicImage::resize(&img, 30, height*30/width, imageops::Nearest);
+    let img = image::DynamicImage::resize(&img, 40, height*40/width, imageops::Nearest);
     let (width, height) = img.dimensions();
     for y in 0..height {
         for x in 0..width {
@@ -75,13 +75,13 @@ fn image_to_ascii(imgname:&str) {
             else {
                 let brightness:f32 = (r + g + b) / 3.0;
                 match brightness {
-                    brightness if brightness >= 240.0 => ascii_output.push_str(".."),//print!("."),
-                    brightness if brightness >= 200.0 => ascii_output.push_str("**"),//print!("*"),
-                    brightness if brightness >= 160.0 => ascii_output.push_str("oo"),//print!("o"),
-                    brightness if brightness >= 120.0 => ascii_output.push_str("&&"),//print!("&"),
-                    brightness if brightness >= 80.0 => ascii_output.push_str("$$"),//print!("$"),
-                    brightness if brightness >= 40.0 => ascii_output.push_str("++"),//print!("+"),
-                    _=> ascii_output.push_str("##"),//print!("#"),
+                    brightness if brightness >= 240.0 => ascii_output.push_str("##"),//print!("."),
+                    brightness if brightness >= 200.0 => ascii_output.push_str("&&"),//print!("*"),
+                    brightness if brightness >= 160.0 => ascii_output.push_str("%%"),//print!("o"),
+                    brightness if brightness >= 120.0 => ascii_output.push_str("$$"),//print!("&"),
+                    brightness if brightness >= 80.0 => ascii_output.push_str("++"),//print!("$"),
+                    brightness if brightness >= 40.0 => ascii_output.push_str("**"),//print!("+"),
+                    _=> ascii_output.push_str("--"),//print!("#"),
                 }
             }
 
@@ -203,7 +203,7 @@ fn cropimg(imgname:&str) {
             let cropheight = answer_to_u32();
             let img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
         },
-        3=> {
+        3=> { //unfinished
             let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
         },
         _=> {
