@@ -27,20 +27,20 @@ fn main() {
 
 fn answer() -> String {
     let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("aaa");
+    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
     return userinput;
 }
 
 fn answer_to_u8() -> u8 {
     let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("aaa");
+    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
     let userinput:u8 = userinput.trim().parse().expect("Needs to be a number!");
     return userinput;
 }
 
 fn answer_to_u32() -> u32 {
     let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("aaa");
+    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
     let userinput:u32 = userinput.trim().parse().expect("Needs to be a number!");
     return userinput;
 }
