@@ -25,7 +25,7 @@ When the first early version comes out, Visual Oxide will be available for the f
 - OpenBSD (x86_64, aarch64)
 - NetBSD (x86_64, aarch64)
 
-More platforms should be supported in the future
+More platforms should be supported in the future. If your system or architecture is not supported, please create an issue where you write about it so I compile for your platform in the next version.
 
 # Compiling from source
 Visual Oxide will work on any operative system and architecture that supports Rust's compiler
