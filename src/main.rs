@@ -8,7 +8,7 @@ fn main() {
     println!("1. Resize     2. Crop     3. Image to ASCII");
     println!("Choose an operation");
     let operation = answer_to_u8();
-    let currentdir = fs::read_dir("./").unwrap();
+    let currentdir = fs::read_dir(".").unwrap();
     for dir in currentdir {
         println!("{}", dir.unwrap().path().display());
     }
@@ -74,7 +74,6 @@ fn image_to_ascii(imgname:&str) {
         for x in 0..width {
             let pixel = img.get_pixel(x, y);
             let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;
-            //println!("r={}", r.to_string());
             if alpha == 0.0 {ascii_output.push_str("  ");}//print!(" ");}
             else {
                 let brightness:f32 = (r + g + b) / 3.0;
@@ -91,7 +90,7 @@ fn image_to_ascii(imgname:&str) {
                     brightness if brightness >= 60.0 => ascii_output.push_str("++"),//print!("$"),
                     brightness if brightness >= 40.0 => ascii_output.push_str("**"),//print!("+"),
                     brightness if brightness >= 20.0 => ascii_output.push_str("''"),//print!("+"),
-                    _=> ascii_output.push_str("--"),//print!("#"),
+                    _=> ascii_output.push_str("--"),
                 }
             }
 
