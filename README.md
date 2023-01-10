@@ -28,6 +28,6 @@ When the first early version comes out, Visual Oxide will be available for the f
 More platforms should be supported in the future
 
 # Compiling from source
-Visual Oxide will work on any operative system that supports Rust's compiler and package manager
+Visual Oxide will work on any operative system and architecture that supports Rust's compiler
 
 Install cargo, Rust's package manager, and open a terminal in the project's directory and run ``` cargo build -r ```
