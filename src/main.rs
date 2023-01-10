@@ -58,16 +58,18 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //fn print
 //imagetoascii
 //duplicate horizontal ascii characters for compensat
+//remove extension from file readline
 fn image_to_ascii(imgname:&str) {
     println!("Note: ASCII art generation only works if the image is 8bits/channel   ");
     let mut ascii_output = String::new();
     println!("");
     let img = open_image(&imgname);
     let (width, height) = img.dimensions();
-    println!("Choose the ASCII outpit width");
+    println!("Choose the ASCII output width");
     let resizewidth = answer_to_u32();
     let img = image::DynamicImage::resize(&img, resizewidth, height*resizewidth/width, imageops::Nearest);
     let (width, height) = img.dimensions();
+
     for y in 0..height {
         for x in 0..width {
             let pixel = img.get_pixel(x, y);
@@ -97,11 +99,12 @@ fn image_to_ascii(imgname:&str) {
         ascii_output.push('\n');//println!("");
     }
     println!("{ascii_output}");
+    fs::write("ascii_output.txt", ascii_output);
 }
 
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
-   img.save("test.ico");
+   img.save("{imgname}_icon.ico");
 }
 
 fn testfun(imgname:&str) {
@@ -186,7 +189,7 @@ fn resizeimg(imgname:&str) {
     }
 
     let img_resized = image::DynamicImage::resize(&img, rw, rh, imageops::CatmullRom);
-    img_resized.save("scaleimg.png").unwrap();
+    img_resized.save("{imgname}_scaled.png").unwrap();
     //let imgenc = PngEncoder::write_image(imgenc, &img_resized, w, h, ColorType::Rgb16);
     //image::save_buffer("test.png", &img_resized, w/2, w/2, ExtendedColorType::Bgr16).unwrap();
 }
@@ -194,7 +197,7 @@ fn resizeimg(imgname:&str) {
 fn cropimg(imgname:&str) {
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
-    println!("1. Manual     2. Center (preset)"); println!("Set the cropping mode");
+    println!("1. Manual     2. Center (preset)"); println!("Choose the cropping mode");
     let cropmode = answer_to_u8();
     match cropmode {
         1=> {
@@ -215,5 +218,5 @@ fn cropimg(imgname:&str) {
             println!("Choose a cropping mode!");
         }
     }
-    img.save("cropimg.png").unwrap();
+    img.save("{imgname}_cropped.png").unwrap();
 }
