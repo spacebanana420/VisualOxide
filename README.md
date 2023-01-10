@@ -8,7 +8,7 @@ The program is currently on a very early stage
 # Features (as of now)
 - Image resizing and cropping
 - Image generation and creation of pixel patterns
-- ASCII art generation from an image
+- ASCII art generation from an image with custom width
 - Decoding support for all formats supported by the image library
 - Preservation of original bit depth
 - PNG encoding
