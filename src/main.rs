@@ -1,6 +1,7 @@
 use image::imageops;
-use image::{GenericImageView, Pixel, GenericImage, ColorType, ImageBuffer, DynamicImage, Rgba};
-use image::io::Reader;
+use image::{GenericImageView, GenericImage, DynamicImage};
+//Pixel, ColorType, ImageBuffer, Rgba
+//use image::io::Reader;
 use std::io;
 use std::fs;
 
@@ -98,12 +99,12 @@ fn image_to_ascii(imgname:&str) {
         ascii_output.push('\n');//println!("");
     }
     println!("{ascii_output}");
-    fs::write("ascii_output.txt", ascii_output);
+    fs::write("ascii_output.txt", ascii_output).expect("Could not write the ASCII output");
 }
 
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
-   img.save("{imgname}_icon.ico");
+   img.save("{imgname}_icon.ico").expect("Could not save the ico image");
 }
 
 fn testfun(imgname:&str) {
