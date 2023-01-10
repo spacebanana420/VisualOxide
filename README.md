@@ -18,7 +18,7 @@ The program is currently on a very early stage
 
 Version 0.1 isn't out yet, so there are no binaries available as of now.
 When the first early version comes out, Visual Oxide will be available for the following systems:
-- Linux (x86, x86_64, aarch64)
+- Linux (x86, x86_64, aarch64) (both libc and musl)
 - Windows (x86_64)
 - MacOS (x86_64)
 - FreeBSD (x86_64)
