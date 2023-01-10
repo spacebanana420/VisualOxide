@@ -20,8 +20,7 @@ fn main() {
         2=> cropimg(&inputimg),
         3=> image_to_ascii(&inputimg),
         _=> {
-            println!("Chosen operation is incorrect");
-            println!("Please choose an operation by typing its name or number");
+            println!("Please choose one of the available operation");
         }
     }
 }
@@ -65,7 +64,9 @@ fn image_to_ascii(imgname:&str) {
     println!("");
     let img = open_image(&imgname);
     let (width, height) = img.dimensions();
-    let img = image::DynamicImage::resize(&img, 40, height*40/width, imageops::Nearest);
+    println!("Choose the ASCII outpit width");
+    let resizewidth = answer_to_u32();
+    let img = image::DynamicImage::resize(&img, resizewidth, height*resizewidth/width, imageops::Nearest);
     let (width, height) = img.dimensions();
     for y in 0..height {
         for x in 0..width {
@@ -193,13 +194,10 @@ fn resizeimg(imgname:&str) {
 fn cropimg(imgname:&str) {
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
-    println!("1. Division     2. Manual     3. Center (preset)"); println!("Set the cropping mode");
+    println!("1. Manual     2. Center (preset)"); println!("Set the cropping mode");
     let cropmode = answer_to_u8();
     match cropmode {
         1=> {
-
-        },
-        2=> {
             println!("Choose the starting point (from left)");
             let startx = answer_to_u32();
             println!("Choose the starting point (from top)");
@@ -210,7 +208,7 @@ fn cropimg(imgname:&str) {
             let cropheight = answer_to_u32();
             let img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
         },
-        3=> { //unfinished
+        2=> { //unfinished
             let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
         },
         _=> {
