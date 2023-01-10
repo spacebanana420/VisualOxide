@@ -14,6 +14,19 @@ The program is currently on a very early stage
 - PNG encoding
 - Image to ico conversion
 
+# Download
+
+Version 0.1 isn't out yet, so there are no binaries available as of now.
+When the first early version comes out, Visual Oxide will be available for the following systems:
+- Linux (x86, x86_64, aarch64)
+- Windows (x86_64)
+- MacOS (x86_64)
+- FreeBSD (x86_64)
+- OpenBSD (x86_64)
+- NetBSD (x86_64)
+
+More platforms should be supported in the future
+
 # Compiling from source
 Visual Oxide will work on any operative system that supports Rust's compiler and package manager
 
