@@ -73,7 +73,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //imagetoascii
 //duplicate horizontal ascii characters for compensat
 //remove extension from file readline
-
+//split this file into modules
 fn image_to_ascii(imgname:&str) {
     println!("Note: ASCII art generation only works if the image is 8bits/channel");
     let mut ascii_output = String::new();
@@ -230,7 +230,7 @@ fn resizeimg(imgname:&str) {
     //image::save_buffer("test.png", &img_resized, w/2, w/2, ExtendedColorType::Bgr16).unwrap();
 }
 
-fn cropimg(imgname:&str) { //has issues
+fn cropimg(imgname:&str) { //check if center is actually centered
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
     println!("1. Manual     2. Center");
@@ -246,14 +246,14 @@ fn cropimg(imgname:&str) { //has issues
             let cropwidth = answer_to_u32();
             println!("Choose the crop height");
             let cropheight = answer_to_u32();
-            let img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
+            img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
         },
         2=> {
             println!("Choose the crop width");
             let cropwidth = answer_to_u32();
             println!("Choose the crop height");
             let cropheight = answer_to_u32();
-            let img = image::DynamicImage::crop(&mut img, cropwidth/2, cropheight/2, cropwidth, cropheight);
+            img = image::DynamicImage::crop(&mut img, cropwidth/2, cropheight/2, cropwidth, cropheight);
         },
         _=> {
             println!("Choose a cropping mode!");
