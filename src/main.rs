@@ -73,6 +73,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //imagetoascii
 //duplicate horizontal ascii characters for compensat
 //remove extension from file readline
+
 fn image_to_ascii(imgname:&str) {
     println!("Note: ASCII art generation only works if the image is 8bits/channel");
     let mut ascii_output = String::new();
@@ -123,7 +124,7 @@ fn icogen(imgname:&str) {
    String::push_str(&mut exportname, ".ico");
    img.save(exportname).expect("Could not save the ico image");
 }
-
+/*
 fn testfunction(imgname:&str) {
     //let img = image::open(imgname.trim()).expect("ag");
     //let pixeltest = img.get_pixel(40, 40);
@@ -150,7 +151,7 @@ fn testfunction(imgname:&str) {
     }
     square.save("square.png").unwrap();
     //println!("{}", pixeltest as u8);
-}
+}*/
 
 /*fn imageinfo(imgname:&str) {
     let img = open_image(&imgname);
