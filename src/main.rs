@@ -112,12 +112,16 @@ fn image_to_ascii(imgname:&str) {
         ascii_output.push('\n');//println!("");
     }
     println!("{ascii_output}");
-    fs::write("ascii_output.txt", ascii_output).expect("Could not write the ASCII output");
+    let mut exportname = remove_extension(&imgname);
+    String::push_str(&mut exportname, "_ascii.txt");
+    fs::write(exportname, ascii_output).expect("Could not write the ASCII output");
 }
 
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
-   img.save("{imgname}_icon.ico").expect("Could not save the ico image");
+   let mut exportname = remove_extension(&imgname);
+   String::push_str(&mut exportname, ".ico");
+   img.save(exportname).expect("Could not save the ico image");
 }
 
 fn testfunction(imgname:&str) {
