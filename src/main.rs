@@ -253,7 +253,8 @@ fn cropimg(imgname:&str) { //check if center is actually centered
             let cropwidth = answer_to_u32();
             println!("Choose the crop height");
             let cropheight = answer_to_u32();
-            img = image::DynamicImage::crop(&mut img, cropwidth/2, cropheight/2, cropwidth, cropheight);
+            //fix center calculation
+            img = image::DynamicImage::crop(&mut img, w/2-cropwidth, h/2-cropheight, cropwidth, cropheight);
         },
         _=> {
             println!("Choose a cropping mode!");
