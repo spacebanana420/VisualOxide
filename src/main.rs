@@ -46,6 +46,19 @@ fn answer_to_u32() -> u32 {
     return userinput;
 }
 
+fn remove_extension(originalstring:&str) -> String { //needs testing
+    let mut original_extension = String::new();
+    let mut addchars = false;
+    for i in originalstring.chars() {
+        if i == '.' {addchars = true;}
+        if addchars == true {
+            original_extension.push(i);
+        }
+    }
+    let finalstring = String::from(originalstring).replace(&original_extension, "");
+    return finalstring;
+}
+
 fn open_image(filename:&str) -> image::DynamicImage {
     let inputimage = image::open(filename.trim()).expect("Image file not found in specified directory");
     return inputimage;
@@ -204,12 +217,15 @@ fn resizeimg(imgname:&str) {
         _=> println!("You need to choose a pixel filter!")
     }
     let img_resized = image::DynamicImage::resize(&img, rw, rh, pixelfilter);
-    img_resized.save("{imgname}_scaled.png").unwrap();
+
+    let mut exportname = remove_extension(&imgname);
+    String::push_str(&mut exportname, "_scaled.png");
+    img_resized.save(exportname).unwrap();
     //let imgenc = PngEncoder::write_image(imgenc, &img_resized, w, h, ColorType::Rgb16);
     //image::save_buffer("test.png", &img_resized, w/2, w/2, ExtendedColorType::Bgr16).unwrap();
 }
 
-fn cropimg(imgname:&str) {
+fn cropimg(imgname:&str) { //has issues
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
     println!("1. Manual     2. Center");
@@ -227,12 +243,18 @@ fn cropimg(imgname:&str) {
             let cropheight = answer_to_u32();
             let img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
         },
-        2=> { //unfinished
-            let img = image::DynamicImage::crop(&mut img, w/4, h/4, w/2, h/2);
+        2=> {
+            println!("Choose the crop width");
+            let cropwidth = answer_to_u32();
+            println!("Choose the crop height");
+            let cropheight = answer_to_u32();
+            let img = image::DynamicImage::crop(&mut img, cropwidth/2, cropheight/2, cropwidth, cropheight);
         },
         _=> {
             println!("Choose a cropping mode!");
         }
     }
-    img.save("{imgname}_cropped.png").unwrap();
+    let mut exportname = remove_extension(&imgname);
+    String::push_str(&mut exportname, "_cropped.png");
+    img.save(exportname).unwrap();
 }
