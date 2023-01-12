@@ -61,7 +61,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
 //duplicate horizontal ascii characters for compensat
 //remove extension from file readline
 fn image_to_ascii(imgname:&str) {
-    println!("Note: ASCII art generation only works if the image is 8bits/channel   ");
+    println!("Note: ASCII art generation only works if the image is 8bits/channel");
     let mut ascii_output = String::new();
     println!("");
     let img = open_image(&imgname);
@@ -107,7 +107,7 @@ fn icogen(imgname:&str) {
    img.save("{imgname}_icon.ico").expect("Could not save the ico image");
 }
 
-fn testfun(imgname:&str) {
+fn testfunction(imgname:&str) {
     //let img = image::open(imgname.trim()).expect("ag");
     //let pixeltest = img.get_pixel(40, 40);
     let mut switch:u8 = 1;
@@ -162,7 +162,7 @@ fn resizeimg(imgname:&str) {
             rh = answer_to_u32();
         },
         3=> {
-            println!("1. width   2. height");
+            println!("1. width    2. height");
             println!("Choose one to scale, the other will be automatic");
             let mode = answer_to_u8();
             match mode {
@@ -187,8 +187,23 @@ fn resizeimg(imgname:&str) {
             println!("You need to select a scaling mode!");
         },
     }
-
-    let img_resized = image::DynamicImage::resize(&img, rw, rh, imageops::CatmullRom);
+    println!("1. Linear    2. Cubic    3. Nearest");
+    println!("Choose a pixel interpolation filter");
+    let filterans = answer_to_u8();
+    let pixelfilter = imageops::CatmullRom;
+    match filterans {
+        1=> {
+            let pixelfilter = imageops::Triangle;
+        },
+        2=> {
+            let pixelfilter = imageops::CatmullRom;
+        },
+        3=> {
+            let pixelfilter = imageops::Nearest;
+        },
+        _=> println!("You need to choose a pixel filter!")
+    }
+    let img_resized = image::DynamicImage::resize(&img, rw, rh, pixelfilter);
     img_resized.save("{imgname}_scaled.png").unwrap();
     //let imgenc = PngEncoder::write_image(imgenc, &img_resized, w, h, ColorType::Rgb16);
     //image::save_buffer("test.png", &img_resized, w/2, w/2, ExtendedColorType::Bgr16).unwrap();
@@ -197,7 +212,8 @@ fn resizeimg(imgname:&str) {
 fn cropimg(imgname:&str) {
     let mut img = open_image(&imgname);
     let (w, h) = img.dimensions();
-    println!("1. Manual     2. Center (preset)"); println!("Choose the cropping mode");
+    println!("1. Manual     2. Center");
+    println!("Choose the cropping mode");
     let cropmode = answer_to_u8();
     match cropmode {
         1=> {
