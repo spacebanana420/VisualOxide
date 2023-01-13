@@ -21,9 +21,8 @@ When the first early version comes out, Visual Oxide will be available for the f
 - Linux (x86, x86_64, aarch64) (both glibc and musl)
 - Windows (x86_64)
 - MacOS (x86_64, aarch64)
-- FreeBSD (x86_64, aarch64)
-- OpenBSD (x86_64, aarch64)
-- NetBSD (x86_64, aarch64)
+- FreeBSD (x86_64)
+- NetBSD (x86_64)
 
 More platforms should be supported in the future. If your system or architecture is not supported, please create an issue where you write about it so I compile for your platform in the next version.
 
