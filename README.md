@@ -20,11 +20,8 @@ Version 0.1 isn't out yet, so there are no binaries available as of now.
 When the first early version comes out, Visual Oxide will be available for the following systems:
 - Linux (x86_64) (both glibc and musl)
 - Windows (x86_64)
-- MacOS (x86_64)
-- FreeBSD (x86_64)
-- NetBSD (x86_64)
 
-More platforms should be supported in the future. If your system or architecture is not supported, please create an issue where you write about it so I compile for your platform in the next version.
+More platforms and architectures should be supported in the future such as MacOS, FreeBSD and aarch64. If your system or architecture is not supported, please create an issue where you write about it so I compile for your platform in the next version. You can also compile the code yourself if you have rust installed on your system.
 
 # Compiling from source
 Visual Oxide will work on any operative system and architecture that supports Rust's compiler
