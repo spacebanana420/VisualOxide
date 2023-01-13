@@ -15,9 +15,9 @@ The program is currently on a very early stage
 - Image to ico conversion
 
 # Download
+You can download the latest versions of Visual Oxide [here](https://github.com/spacebanana420/VisualOxide/releases)
 
-Version 0.1 isn't out yet, so there are no binaries available as of now.
-When the first early version comes out, Visual Oxide will be available for the following systems:
+The current latest version of Visual Oxide supports the following systems:
 - Linux (x86_64) (both glibc and musl)
 - Windows (x86_64)
 
