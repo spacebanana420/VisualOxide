@@ -6,7 +6,7 @@ use std::io;
 use std::fs;
 
 fn main() {
-    println!("1. Resize     2. Crop     3. Image to ASCII");
+    println!("1. Resize     2. Crop     3. Image to ASCII     4. Image to Ico (untested)");
     println!("Choose an operation");
     let operation = answer_to_u8();
     let currentdir = fs::read_dir(".").unwrap();
@@ -20,6 +20,7 @@ fn main() {
         1=> resizeimg(&inputimg),
         2=> cropimg(&inputimg),
         3=> image_to_ascii(&inputimg),
+        4=> icogen(&inputimg),
         _=> {
             println!("Please choose one of the available operation");
         }
@@ -208,16 +209,16 @@ fn resizeimg(imgname:&str) {
     println!("1. Linear    2. Cubic    3. Nearest");
     println!("Choose a pixel interpolation filter");
     let filterans = answer_to_u8();
-    let pixelfilter = imageops::CatmullRom;
+    let mut pixelfilter = imageops::CatmullRom;
     match filterans {
         1=> {
-            let pixelfilter = imageops::Triangle;
+            pixelfilter = imageops::Triangle;
         },
         2=> {
-            let pixelfilter = imageops::CatmullRom;
+            pixelfilter = imageops::CatmullRom;
         },
         3=> {
-            let pixelfilter = imageops::Nearest;
+            pixelfilter = imageops::Nearest;
         },
         _=> println!("You need to choose a pixel filter!")
     }
@@ -254,7 +255,7 @@ fn cropimg(imgname:&str) { //check if center is actually centered
             println!("Choose the crop height");
             let cropheight = answer_to_u32();
             //fix center calculation
-            img = image::DynamicImage::crop(&mut img, w/2-cropwidth, h/2-cropheight, cropwidth, cropheight);
+            img = image::DynamicImage::crop(&mut img, (w-cropwidth)/2, (h-cropheight)/2, cropwidth, cropheight);
         },
         _=> {
             println!("Choose a cropping mode!");
