@@ -10,8 +10,15 @@ fn main() {
     println!("Choose an operation");
     let operation = answer_to_u8();
     let currentdir = fs::read_dir(".").unwrap();
+    let mut horizontal_count:u8 = 0;
+    println!("");
     for dir in currentdir {
-        println!("{}", dir.unwrap().path().display());
+        print("{} ", dir.unwrap().path().display());
+        horizontal_count+=1;
+        if horizontal_count == 3 {
+            horizontal_count = 0;
+            println!("");
+        }
     }
     println!("Input image file");
     let inputimg = answer();
@@ -125,6 +132,7 @@ fn icogen(imgname:&str) {
    String::push_str(&mut exportname, ".ico");
    img.save(exportname).expect("Could not save the ico image");
 }
+
 /*
 fn testfunction(imgname:&str) {
     //let img = image::open(imgname.trim()).expect("ag");
