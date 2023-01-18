@@ -6,7 +6,7 @@ fn open_image(filename:&str) -> image::DynamicImage {
     return inputimage;
 }
 
-fn brightest_pixel (r:u32, g:u32, b:u32) -> u8 { //needs testing or improvement
+fn brightest_pixel (r:f32, g:f32, b:f32) -> u8 { //needs testing or improvement
     //for the returned value, red is 0, green is 1, blue is 2
     //let (pos_r, pos_g, pos_b):u8 = (1, 2, 3);
     if r < g {
@@ -25,22 +25,26 @@ pub fn contrast (imgname:&str) { //function is unfinished and will only work for
     let mut contrastaddition:u32;
     //let mut newpixel: [u32; 4] = [0; 4];
     let mut newpixel = image::Rgba([0, 0, 0, 0]);
-
     for y in 0..height {
         for x in 0..width {
             let pixel = img.get_pixel(x, y);
             let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;
             let brightness:f32 = (r + g + b) / 3.0;
-            let brightest = brightest_pixel();
+            let brightest = brightest_pixel(r, g, b);
+            let mut increment:f32 = 20;
             if brightness > 127 {
-                newpixel[0] = r + 20.0;
-                newpixel[1] = g + 20.0;
-                newpixel[2] = b + 20.0;
+                newpixel[0] = r + 20.0 * r / brightest / brightness * 255;
+                newpixel[1] = g + 20.0 * g / brightest / brightness * 255;
+                newpixel[2] = b + 20.0 * b / brightest / brightness * 255;
                 newpixel[3] = alpha;
                 DynamicImage::put_pixel(&mut img, x, y, newpixel);
             }
-            else if brightness < 127 {
-
+            else if brightness < 127 { //needs inversion for brightness
+                newpixel[0] = r - 20.0 * r / brightest * brightness / 255;
+                newpixel[1] = g - 20.0 * g / brightest * brightness / 255;
+                newpixel[2] = b - 20.0 * b / brightest * brightness / 255;
+                newpixel[3] = alpha;
+                DynamicImage::put_pixel(&mut img, x, y, newpixel);
             }
         }
     }
