@@ -2,18 +2,18 @@ use image::imageops;
 use image::{GenericImageView, GenericImage, DynamicImage};
 //Pixel, ColorType, ImageBuffer, Rgba
 //use image::io::Reader;
-use std::io;
 use std::fs;
+
+mod userinput;
 
 fn main() {
     println!("1. Resize     2. Crop     3. Image to ASCII     4. Image to Ico (untested)");
     println!("Choose an operation");
-    let operation = answer_to_u8();
+    let operation = userinput::answer_to_u8();
     let currentdir = fs::read_dir(".").unwrap();
     let mut horizontal_count:u8 = 0;
-    println!("");
     for dir in currentdir {
-        print!("{} ", dir.unwrap().path().display());
+        println!("{}", dir.unwrap().path().display());
         horizontal_count+=1;
         if horizontal_count == 3 {
             horizontal_count = 0;
@@ -21,7 +21,7 @@ fn main() {
         }
     }
     println!("Input image file");
-    let inputimg = answer();
+    let inputimg = userinput::answer();
 
     match operation {
         1=> resizeimg(&inputimg),
@@ -32,39 +32,6 @@ fn main() {
             println!("Please choose one of the available operation");
         }
     }
-}
-
-fn answer() -> String {
-    let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
-    return userinput;
-}
-
-fn answer_to_u8() -> u8 {
-    let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
-    let userinput:u8 = userinput.trim().parse().expect("Needs to be a number!");
-    return userinput;
-}
-
-fn answer_to_u32() -> u32 {
-    let mut userinput = String::new();
-    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
-    let userinput:u32 = userinput.trim().parse().expect("Needs to be a number!");
-    return userinput;
-}
-
-fn remove_extension(originalstring:&str) -> String { //needs testing
-    let mut original_extension = String::new();
-    let mut addchars = false;
-    for i in originalstring.chars() {
-        if i == '.' {addchars = true;}
-        if addchars == true {
-            original_extension.push(i);
-        }
-    }
-    let finalstring = String::from(originalstring).replace(&original_extension, "");
-    return finalstring;
 }
 
 fn open_image(filename:&str) -> image::DynamicImage {
@@ -89,7 +56,7 @@ fn image_to_ascii(imgname:&str) {
     let img = open_image(&imgname);
     let (width, height) = img.dimensions();
     println!("Choose the ASCII output width");
-    let resizewidth = answer_to_u32();
+    let resizewidth = userinput::answer_to_u32();
     let img = image::DynamicImage::resize(&img, resizewidth, height*resizewidth/width, imageops::Nearest);
     let (width, height) = img.dimensions();
 
@@ -121,14 +88,14 @@ fn image_to_ascii(imgname:&str) {
         ascii_output.push('\n');//println!("");
     }
     println!("{ascii_output}");
-    let mut exportname = remove_extension(&imgname);
+    let mut exportname = userinput::remove_extension(&imgname);
     String::push_str(&mut exportname, "_ascii.txt");
     fs::write(exportname, ascii_output).expect("Could not write the ASCII output");
 }
 
 fn icogen(imgname:&str) {
    let img = open_image(&imgname);
-   let mut exportname = remove_extension(&imgname);
+   let mut exportname = userinput::remove_extension(&imgname);
    String::push_str(&mut exportname, ".ico");
    img.save(exportname).expect("Could not save the ico image");
 }
@@ -173,35 +140,35 @@ fn resizeimg(imgname:&str) {
 
     println!("1. factor  2. manual  3. auto aspect");
     println!("Choose a mode");
-    let mode = answer_to_u8();
+    let mode = userinput::answer_to_u8();
 
     let mut rw:u32 = 0; let mut rh:u32 = 0;
     match mode {
         1=> {
             println!("Input the image scaling factor");
-            let scalefactor = answer_to_u32();
+            let scalefactor = userinput::answer_to_u32();
             rw = w * scalefactor; rh = h * scalefactor;
         },
         2=> {
             println!("Input width");
-            rw = answer_to_u32();
+            rw = userinput::answer_to_u32();
             println!("Input height");
-            rh = answer_to_u32();
+            rh = userinput::answer_to_u32();
         },
         3=> {
             println!("1. width    2. height");
             println!("Choose one to scale, the other will be automatic");
-            let mode = answer_to_u8();
+            let mode = userinput::answer_to_u8();
             match mode {
                 1=> {
                     println!("Input width");
-                    let tempdimension = answer_to_u32();
+                    let tempdimension = userinput::answer_to_u32();
                     rw = tempdimension;
                     rh = h * (rw / w);
                 },
                 2=> {
                     println!("Input height");
-                    let tempdimension = answer_to_u32();
+                    let tempdimension = userinput::answer_to_u32();
                     rh = tempdimension;
                     rw = w * (rh / h);
                 },
@@ -216,7 +183,7 @@ fn resizeimg(imgname:&str) {
     }
     println!("1. Linear    2. Cubic    3. Nearest");
     println!("Choose a pixel interpolation filter");
-    let filterans = answer_to_u8();
+    let filterans = userinput::answer_to_u8();
     let mut pixelfilter = imageops::CatmullRom;
     match filterans {
         1=> {
@@ -232,7 +199,7 @@ fn resizeimg(imgname:&str) {
     }
     let img_resized = image::DynamicImage::resize(&img, rw, rh, pixelfilter);
 
-    let mut exportname = remove_extension(&imgname);
+    let mut exportname = userinput::remove_extension(&imgname);
     String::push_str(&mut exportname, "_scaled.png");
     img_resized.save(exportname).unwrap();
     //let imgenc = PngEncoder::write_image(imgenc, &img_resized, w, h, ColorType::Rgb16);
@@ -244,24 +211,24 @@ fn cropimg(imgname:&str) { //check if center is actually centered
     let (w, h) = img.dimensions();
     println!("1. Manual     2. Center");
     println!("Choose the cropping mode");
-    let cropmode = answer_to_u8();
+    let cropmode = userinput::answer_to_u8();
     match cropmode {
         1=> {
             println!("Choose the starting point (from left)");
-            let startx = answer_to_u32();
+            let startx = userinput::answer_to_u32();
             println!("Choose the starting point (from top)");
-            let starty = answer_to_u32();
+            let starty = userinput::answer_to_u32();
             println!("Choose the crop width");
-            let cropwidth = answer_to_u32();
+            let cropwidth = userinput::answer_to_u32();
             println!("Choose the crop height");
-            let cropheight = answer_to_u32();
+            let cropheight = userinput::answer_to_u32();
             img = image::DynamicImage::crop(&mut img, startx, starty, cropwidth, cropheight);
         },
         2=> {
             println!("Choose the crop width");
-            let cropwidth = answer_to_u32();
+            let cropwidth = userinput::answer_to_u32();
             println!("Choose the crop height");
-            let cropheight = answer_to_u32();
+            let cropheight = userinput::answer_to_u32();
             //fix center calculation
             img = image::DynamicImage::crop(&mut img, (w-cropwidth)/2, (h-cropheight)/2, cropwidth, cropheight);
         },
@@ -269,7 +236,7 @@ fn cropimg(imgname:&str) { //check if center is actually centered
             println!("Choose a cropping mode!");
         }
     }
-    let mut exportname = remove_extension(&imgname);
+    let mut exportname = userinput::remove_extension(&imgname);
     String::push_str(&mut exportname, "_cropped.png");
     img.save(exportname).unwrap();
 }
