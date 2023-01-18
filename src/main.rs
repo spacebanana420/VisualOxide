@@ -1,9 +1,6 @@
 use image::imageops;
 use image::{GenericImageView, GenericImage, DynamicImage};
-//Pixel, ColorType, ImageBuffer, Rgba
-//use image::io::Reader;
 use std::fs;
-
 mod userinput;
 
 fn main() {
@@ -40,15 +37,9 @@ fn open_image(filename:&str) -> image::DynamicImage {
 }
 //fn help
 //fn batchprocess
-//fn transcode
-//fn getpixel
 //fn generateimage
 //fn checkalpha
-//fn print
-//imagetoascii
-//duplicate horizontal ascii characters for compensat
-//remove extension from file readline
-//split this file into modules
+
 fn image_to_ascii(imgname:&str) {
     println!("Note: ASCII art generation only works if the image is 8bits/channel");
     let mut ascii_output = String::new();
