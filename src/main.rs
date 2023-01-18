@@ -13,7 +13,7 @@ fn main() {
     let mut horizontal_count:u8 = 0;
     println!("");
     for dir in currentdir {
-        print("{} ", dir.unwrap().path().display());
+        print!("{} ", dir.unwrap().path().display());
         horizontal_count+=1;
         if horizontal_count == 3 {
             horizontal_count = 0;
