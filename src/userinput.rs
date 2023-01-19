@@ -1,5 +1,5 @@
 use std::io;
-
+//write name finder
 pub fn answer() -> String {
     let mut userinput = String::new();
     io::stdin().read_line(&mut userinput).expect("Failed to read user input");
