@@ -6,12 +6,12 @@ Visual Oxide uses the [image crate](https://crates.io/crates/image) library for 
 The program is currently on a very early stage
 
 # Features (as of now)
+- ASCII art generation from images
 - Image resizing and cropping
-- Image generation and creation of pixel patterns
-- ASCII art generation from an image with custom width
-- Decoding support for all formats supported by the image library
+- Image generation and creation of pixel patterns (not implemented yet)
+- Contrast adjustment
 - Preservation of original bit depth
-- PNG encoding
+- Multiple format support
 - Image to ico conversion
 
 # Download
