@@ -20,6 +20,13 @@ pub fn answer_to_u32() -> u32 {
     return userinput;
 }
 
+pub fn answer_to_f32() -> f32 {
+    let mut userinput = String::new();
+    io::stdin().read_line(&mut userinput).expect("Failed to read user input");
+    let userinput:f32 = userinput.trim().parse().expect("Needs to be a number!");
+    return userinput;
+}
+
 pub fn remove_extension(originalstring:&str) -> String { //needs testing
     let mut original_extension = String::new();
     let mut addchars = false;

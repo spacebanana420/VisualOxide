@@ -15,7 +15,7 @@ fn main() {
     for dir in currentdir {
         println!("{}", dir.unwrap().path().display());
         horizontal_count+=1;
-        if horizontal_count == 3 {
+        if horizontal_count == 6 {
             horizontal_count = 0;
             println!("");
         }
