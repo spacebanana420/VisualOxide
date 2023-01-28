@@ -4,7 +4,7 @@ mod generalops;
 mod colorops;
 
 fn main() { //print only if file contains image extension
-    let image_formats = [".exr", ".tga", ".png", ".jpg", ".jpeg", ".tiff", ".tif", ".TIF", ".TIFF", ".bmp", ".webp", ".heic", ".heif", ".avif"];
+    let image_formats = [".exr", ".tga", ".png", ".jpg", ".JPG", ".jpeg", ".tiff", ".tif", ".TIF", ".TIFF", ".bmp", ".webp", ".heic", ".heif", ".avif"];
     println!("0. Exit    1. Resize     2. Crop     3. Image to ASCII     4. Image to Ico (untested)");
     println!("");
     println!("5. Contrast adjustment");
