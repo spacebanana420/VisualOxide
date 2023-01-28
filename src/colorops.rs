@@ -49,7 +49,7 @@ pub fn contrast_adjust (imgname:&str) { //function is unfinished and will only w
     let contrast_base:f32 = contrast_base as f32;
     let mut top_channel:f32 = 0.0;
 
-    for y in 0..height {
+    for y in 0..height { //check if the effect lowers or increases based on distance to middle point
         for x in 0..width {
             let pixel = img.get_pixel(x, y);
             let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;

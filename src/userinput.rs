@@ -27,6 +27,8 @@ pub fn answer_to_f32() -> f32 {
     return userinput;
 }
 
+
+
 pub fn remove_extension(originalstring:&str) -> String { //needs testing
     let mut original_extension = String::new();
     let mut addchars = false;
