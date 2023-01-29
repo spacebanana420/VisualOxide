@@ -1,4 +1,4 @@
-use image::GenericImageView;; //GenericImage, DynamicImage};
+use image::{GenericImageView, DynamicImage}; //GenericImage, DynamicImage};
 use crate::userinput;
 
 fn open_image(filename:&str) -> image::DynamicImage {
