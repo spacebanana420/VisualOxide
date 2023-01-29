@@ -1,4 +1,4 @@
-use image::{GenericImageView, GenericImage, DynamicImage};
+use image::GenericImageView;; //GenericImage, DynamicImage};
 use crate::userinput;
 
 fn open_image(filename:&str) -> image::DynamicImage {
@@ -18,7 +18,7 @@ fn brightest_channel (r:f32, g:f32, b:f32) -> u8 { //needs testing or improvemen
     else if r < b {return 2;}
     else {return 0;}
 }
-
+/*
 fn brightest_pixel (img:&DynamicImage, width:u32, height:u32) -> f32 {
     let mut brightest_value:f32 = 0.0;
     let mut brightness:f32;
@@ -31,7 +31,7 @@ fn brightest_pixel (img:&DynamicImage, width:u32, height:u32) -> f32 {
         }
     }
     return brightest_value;
-}
+}*/
 
 pub fn contrast_adjust (imgname:&str) { //function is unfinished and will only work for 8 bit for now
     let mut img = open_image(&imgname);

@@ -37,7 +37,7 @@ fn main() { //print only if file contains image extension
                 charcount - charlength_max + 3
             };
             let mut addspace_string = String::new();
-            for i in 0..addspace {addspace_string.push_str(" ");}
+            for _i in 0..addspace {addspace_string.push_str(" ");}
             print!("{}{}", dir_path.display(), addspace_string);
             horizontal_count+=1;
             if horizontal_count == 6 {
