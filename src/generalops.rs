@@ -21,7 +21,16 @@ pub fn image_to_ascii(imgname:&str) {
     let (width, height) = img.dimensions();
     println!("Choose the ASCII output width");
     let resizewidth = userinput::answer_to_u32();
-    let img = image::DynamicImage::resize(&img, resizewidth, height*resizewidth/width, imageops::Nearest);
+    println!("Choose the smoothness level (0, 1, 2)");
+    let smoothness_level = userinput::answer_to_u8();
+    let mut resize_filter = imageops::Triangle;
+    match smoothness_level {
+        0=> resize_filter = imageops::Nearest,
+        1=> resize_filter = imageops::CatmullRom,
+        2=> resize_filter = imageops::Triangle,
+        _=> {println!("You need to choose a level from 0 to 2!"); return;}
+    }
+    let img = image::DynamicImage::resize(&img, resizewidth, height*resizewidth/width, resize_filter);
     let (width, height) = img.dimensions();
 
     for y in 0..height {
