@@ -17,7 +17,7 @@ The program is currently on a very early stage
 # Download
 You can download the latest versions of Visual Oxide [here](https://github.com/spacebanana420/VisualOxide/releases)
 
-The current latest version of Visual Oxide supports the following systems:
+Visual Oxide is compiled for the following systems:
 - Linux (x86_64) (both glibc and musl)
 - Windows (x86_64)
 
