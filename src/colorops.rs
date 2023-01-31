@@ -84,7 +84,68 @@ pub fn contrast_adjust (imgname:&str) { //function is unfinished and will only w
     img.save(exportname).expect("Could not save the ico image");
 }
 
+pub fn saturation_adjust (imgname:&str) {
+    let mut img = open_image(&imgname);
+    let (width, height) = img.dimensions();
+    let mut newpixel = image::Rgba([0, 0, 0, 0]);
 
+    println!("Choose the saturation increase level (1-200)");
+    let mut saturation_base = userinput::answer_to_u8();
+    if saturation_base > 200 {saturation_base = 200;}
+    else if saturation_base == 0 {saturation_base = 1;}
+    let saturation_base:f32 = saturation_base as f32;
+
+    let mut top_channel:f32 = 0.0;
+    let mut other_channel1:f32 = 0.0; let mut other_channel2:f32 = 0.0;
+
+    let mut top_channel_index = 1;
+    let mut other_channel_index1 = 1; let mut other_channel_index2 = 2;
+
+    for y in 0..height {
+        for x in 0..width {
+            let pixel = img.get_pixel(x, y);
+            let r = pixel[0] as f32; let g = pixel[1] as f32; let b = pixel[2] as f32; let alpha = pixel[3] as f32;
+            let brightness:f32 = (r + g + b) / 3.0;
+            let whichis_brightest = brightest_channel(r, g, b);
+            match whichis_brightest {
+                0=> {
+                    top_channel = r; top_channel_index = 0;
+                    other_channel1 = g; other_channel_index1 = 1;
+                    other_channel2 = b; other_channel_index2 = 2;
+                },
+                1=> {
+                    top_channel = g; top_channel_index = 1;
+                    other_channel1 = r; other_channel_index1 = 0;
+                    other_channel2 = b; other_channel_index2 = 2;
+                },
+                2=> {
+                    top_channel = b; top_channel_index = 2;
+                    other_channel1 = g; other_channel_index1 = 1;
+                    other_channel2 = r; other_channel_index2 = 0;
+                },
+                _=> { //never happens
+                    top_channel = r; top_channel_index = 0;
+                    other_channel1 = g; other_channel_index1 = 1;
+                    other_channel2 = b; other_channel_index2 = 2;
+                }
+            }
+            //make saturation_add, do not clip
+            let saturation_base:f32 = saturation_base as f32;
+            newpixel[top_channel_index] = (top_channel + saturation_base) as u8;
+            newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
+            newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
+            newpixel[3] = alpha as u8;
+            /*newpixel[0] = (r + saturation_add * r / top_channel) as u8;
+            newpixel[1] = (g + saturation_add * g / top_channel) as u8;
+            newpixel[2] = (b + saturation_add * b / top_channel) as u8;
+            newpixel[3] = alpha as u8;*/
+            DynamicImage::put_pixel(&mut img, x, y, newpixel);
+        }
+    }
+    let mut exportname = userinput::remove_extension(&imgname);
+    String::push_str(&mut exportname, "_saturation.png");
+    img.save(exportname).expect("Could not save the ico image");
+}
 /*
             if brightness > 127.0 {
                 newpixel[0] = (r + increment * r / brightest / brightness * 255.0) as u8;

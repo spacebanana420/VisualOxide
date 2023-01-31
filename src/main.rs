@@ -5,9 +5,9 @@ mod colorops;
 
 fn main() { //print only if file contains image extension
     let image_formats = [".exr", ".tga", ".png", ".jpg", ".JPG", ".jpeg", ".tiff", ".tif", ".TIF", ".TIFF", ".bmp", ".webp", ".heic", ".heif", ".avif"];
-    println!("0. Exit    1. Resize     2. Crop     3. Image to ASCII     4. Image to Ico (untested)");
+    println!("0. Exit     1. Resize     2. Crop     3. Image to ASCII     4. Image to Ico (untested)");
     println!("");
-    println!("5. Contrast adjustment");
+    println!("5. Contrast adjustment     6. Saturation adjustment");
     println!("");
     println!("Choose an operation");
     let operation = userinput::answer_to_u8();
@@ -56,6 +56,7 @@ fn main() { //print only if file contains image extension
         3=> generalops::image_to_ascii(&inputimg),
         4=> generalops::icogen(&inputimg),
         5=> colorops::contrast_adjust(&inputimg),
+        6=> colorops::saturation_adjust(&inputimg),
         _=> {
             println!("Please choose one of the available operation");
         }
