@@ -91,6 +91,9 @@ pub fn saturation_adjust (imgname:&str) {
 
     println!("Choose the saturation increase level (1-200)");
     let mut saturation_base = userinput::answer_to_u8();
+    println!("1. Hue preservation     2. No preservation"); println!("Choose a saturation mode");
+    let mut saturation_mode = userinput::answer_to_u8();
+    if saturation_mode != 1 && saturation_mode != 2 {saturation_mode = 1;}
     if saturation_base > 200 {saturation_base = 200;}
     else if saturation_base == 0 {saturation_base = 1;}
     let saturation_base:f32 = saturation_base as f32;
@@ -131,10 +134,23 @@ pub fn saturation_adjust (imgname:&str) {
             }
             //make saturation_add, do not clip
             let saturation_base:f32 = saturation_base as f32;
+
             newpixel[top_channel_index] = (top_channel + saturation_base) as u8;
-            newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
-            newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
             newpixel[3] = alpha as u8;
+            if saturation_mode == 1 {
+                if other_channel1 > other_channel2 {
+                    newpixel[other_channel_index1] = (other_channel1 + saturation_base * other_channel1 / top_channel) as u8;
+                    newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
+                }
+                else {
+                    newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
+                    newpixel[other_channel_index2] = (other_channel2 + saturation_base * other_channel2 / top_channel) as u8;
+                }
+            }
+            else {
+                newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
+                newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
+            }
             /*newpixel[0] = (r + saturation_add * r / top_channel) as u8;
             newpixel[1] = (g + saturation_add * g / top_channel) as u8;
             newpixel[2] = (b + saturation_add * b / top_channel) as u8;
