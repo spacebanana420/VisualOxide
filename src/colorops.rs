@@ -140,10 +140,12 @@ pub fn saturation_adjust (imgname:&str) {
             if saturation_mode == 1 {
                 if other_channel1 > other_channel2 {
                     newpixel[other_channel_index1] = (other_channel1 + saturation_base * other_channel1 / top_channel) as u8;
-                    newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
+                    //newpixel[other_channel_index2] = (other_channel2 - saturation_base * other_channel2 / top_channel) as u8;
+                    newpixel[other_channel_index2] = other_channel2 as u8;
                 }
                 else {
-                    newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
+                    //newpixel[other_channel_index1] = (other_channel1 - saturation_base * other_channel1 / top_channel) as u8;
+                    newpixel[other_channel_index1] = other_channel1 as u8;
                     newpixel[other_channel_index2] = (other_channel2 + saturation_base * other_channel2 / top_channel) as u8;
                 }
             }
