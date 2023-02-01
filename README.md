@@ -19,6 +19,7 @@ You can download the latest versions of Visual Oxide [here](https://github.com/s
 
 Visual Oxide is compiled for the following systems:
 - Linux (x86_64) (both glibc and musl)
+- NixOS (x86_64) (glibc) (coming version 3.0)
 - Windows (x86_64)
 
 If the regular Linux binary doesn't work, try the musl version
