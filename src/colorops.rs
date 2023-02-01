@@ -38,9 +38,9 @@ pub fn contrast_adjust (imgname:&str) { //function is unfinished and will only w
     let (width, height) = img.dimensions();
     let mut newpixel = image::Rgba([0, 0, 0, 0]);
 
-    println!("Choose the contrast middle point (0-255)");
+    println!("Choose the contrast middle point (0-255) (above increases brightness, below decreases)");
     let middlepoint = userinput::answer_to_f32();
-    println!("Choose the contrast level (1-200)");
+    println!("Choose the contrast increase level (1-200) (higher value, higher contrast)");
     let mut contrast_base = userinput::answer_to_u8();
     if contrast_base > 200 {contrast_base = 200;}
     else if contrast_base == 0 {contrast_base = 1;}
@@ -89,9 +89,9 @@ pub fn saturation_adjust (imgname:&str) {
     let (width, height) = img.dimensions();
     let mut newpixel = image::Rgba([0, 0, 0, 0]);
 
-    println!("Choose the saturation increase level (1-200)");
+    println!("Choose the saturation increase level (1-200) (higher value, higher saturation)");
     let mut saturation_base = userinput::answer_to_u8();
-    println!("1. Hue preservation     2. No preservation"); println!("Choose a saturation mode");
+    println!("1. Hue preservation (default)     2. No preservation"); println!("Choose a saturation mode");
     let mut saturation_mode = userinput::answer_to_u8();
     if saturation_mode != 1 && saturation_mode != 2 {saturation_mode = 1;}
     if saturation_base > 200 {saturation_base = 200;}
