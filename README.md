@@ -19,12 +19,11 @@ You can download the latest versions of Visual Oxide [here](https://github.com/s
 
 Visual Oxide is compiled for the following systems:
 - Linux (x86_64) (both glibc and musl)
-- NixOS (x86_64) (glibc) (coming version 3.0)
 - Windows (x86_64)
 
-If the regular Linux binary doesn't work, try the musl version
+If the regular Linux binary doesn't work, for example on NixOS, try the musl version
 
-More platforms and architectures should be supported in the future such as MacOS, FreeBSD and aarch64. If your system or architecture is not supported, please create an issue where you write about it so I compile for your platform in the next version. You can also compile the code yourself if you have rust installed on your system.
+Cross-compiling isn't my strong suit, so for now I only provide binaries for x86 Linux and Windows, but this doesn't mean that my program doesn't work on other systems, because it does. Unfortunately, you will have to compile from source.
 
 # Compiling from source
 Visual Oxide will work on any operative system and architecture that supports Rust's compiler
